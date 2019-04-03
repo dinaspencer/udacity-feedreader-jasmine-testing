@@ -31,11 +31,12 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
-         it('should have a url', function(){
-                for (var i=0; i<=allFeeds.length; i++){
-                expect(Object.keys('url')).toBeDefined();
-                expect(Object.keys('url')).not.toBeNull();
+         it('should have a url', function() {
+                for(let feed of allFeeds){
+                expect(feed.url).toBeDefined();
+                expect(feed.url.length).not.toBe(0);
             }
+           
          });
 
                
@@ -43,20 +44,19 @@ $(function() {
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
-         it('should have a name', function(){
-                for (var i=0; i<=allFeeds.length; i++){
-                expect(Object.keys('name')).toBeDefined();
-                expect(Object.keys('name')).not.toBeNull();
+         it('should have a name', function() {
+                for(let feed of allFeeds){
+                expect(feed.name).toBeDefined();
+                expect(feed.name.length).not.toBe(0);
             }
          });
     });
 
 
     /* TODO: Write a new test suite named "The menu" */
-    describe('The Menu', function(){
-        var hidden = document.getElementsByClassName('menu-hidden');
-        var icon = document.querySelector('i');
-        var body = document.querySelector('body');
+    describe('The Menu', function() {
+        const icon = document.querySelector('i');
+        const body = document.querySelector('body');
 
         /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
@@ -73,21 +73,55 @@ $(function() {
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
+
+         it('should open and close when clicked', function(){
+           icon.click();
+            expect(body).not.toHaveClass('menu-hidden');
+            icon.click();
+            expect(body).toHaveClass('menu-hidden');
+          });
+         //I thought these should be separated but it works best within the same function
+         /*it('should close when clicked again', function(){
+            icon.click();
+            expect(body).toHaveClass('menu-hidden');
+         });*/
+          
           
     });
     /* TODO: Write a new test suite named "Initial Entries" */
+    describe('Initial entries', function(){
 
+    const feed = document.querySelector('.feed');
+
+
+    
         /* TODO: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
+         beforeEach(function(done){
+            loadFeed(0, done); 
+         });
 
+         it('has at least one entry', function(){
+            expect(feed.children.length).not.toBe(0);
+         });
+     });
     /* TODO: Write a new test suite named "New Feed Selection" */
+    describe('New Feed Selection', function(){
+        const feed = document.querySelector('.feed');
 
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+         beforeEach(function(done){
+            loadFeed(0); 
+            loadFeed(1, done);
+         });
+
+    });
+    
 }());
