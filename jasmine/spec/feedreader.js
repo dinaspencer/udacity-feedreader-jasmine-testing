@@ -80,19 +80,14 @@ $(function() {
             icon.click();
             expect(body).toHaveClass('menu-hidden');
           });
-         //I thought these should be separated but it works best within the same function
-         /*it('should close when clicked again', function(){
-            icon.click();
-            expect(body).toHaveClass('menu-hidden');
-         });*/
-          
-          
     });
+
     /* TODO: Write a new test suite named "Initial Entries" */
     describe('Initial entries', function(){
 
     const feed = document.querySelector('.feed');
-
+    const entry = document.querySelector('.entry');
+    const feedsList = [];
 
     
         /* TODO: Write a test that ensures when the loadFeed
@@ -106,22 +101,43 @@ $(function() {
          });
 
          it('has at least one entry', function(){
-            expect(feed.children.length).not.toBe(0);
+            for (let feed of allFeeds){
+                feedsList.push(entry);
+            };
+            expect(feedsList.length).not.toBe(0);
          });
      });
     /* TODO: Write a new test suite named "New Feed Selection" */
     describe('New Feed Selection', function(){
         const feed = document.querySelector('.feed');
+        const entry = document.querySelectorAll('.entry');
+        const feedOne = [];
+        const feedTwo = [];
+        
 
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
          beforeEach(function(done){
-            loadFeed(0); 
+            loadFeed(0);
+            Array.from(feed.children).forEach(function(entry){
+                feedOne.push(entry.innerText);
+            });
+            
             loadFeed(1, done);
-         });
+        }); 
+            it('changes to new content', function(){
+                Array.from(feed.children).forEach(function(entry, index){
+                    //used console.log to check content
+                    //console.log(entry.innerText, feedOne[index], entry.innerText === feedOne[index]);
+                    expect(entry.innerText).not.toEqual(feedOne[index]);
+                });
 
+            });
+         
     });
+
+         
     
 }());
