@@ -106,7 +106,6 @@ $(function() {
         const feed = document.querySelector('.feed');
         const entry = document.querySelectorAll('.entry');
         const feedOne = [];
-        //const feedTwo = []; not necessary after all
         
 
         /* Checking that when a new feed is loaded
