@@ -27,7 +27,7 @@ $(function() {
         });
 
 
-        /* TODO: Write a test that loops through each feed
+        /* This is a test that loops through each feed
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
@@ -40,9 +40,7 @@ $(function() {
          });
 
                
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a name defined
-         * and that the name is not empty.
+        /* Now we check for the feeds to have a name defined, and that "name" isn't empty.
          */
          it('should have a name', function() {
                 for(let feed of allFeeds){
@@ -53,36 +51,32 @@ $(function() {
     });
 
 
-    /* TODO: Write a new test suite named "The menu" */
+    /* Now we test the menu. */
     describe('The Menu', function() {
         const icon = document.querySelector('i');
         const body = document.querySelector('body');
 
-        /* TODO: Write a test that ensures the menu element is
-         * hidden by default. You'll have to analyze the HTML and
-         * the CSS to determine how we're performing the
-         * hiding/showing of the menu element.
+        /* We want to make sure the menu element is
+         * hidden by default. by checking the class of <body>.
          */
 
          it('should be hidden by default', function (){
-            expect(body).toHaveClass('menu-hidden');
+            expect(body).hasClass('menu-hidden').toBe(true);
          });
 
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
+         /* Checking to see if the menu changes
+          * visibility when the menu icon is clicked. 
           */
 
          it('should open and close when clicked', function(){
            icon.click();
-            expect(body).not.toHaveClass('menu-hidden');
+            expect(body).hasClass('menu-hidden').toBe(false);
             icon.click();
-            expect(body).toHaveClass('menu-hidden');
+            expect(body).hasClass('menu-hidden').toBe(true);
           });
     });
 
-    /* TODO: Write a new test suite named "Initial Entries" */
+    /* Now we check Initial Entries */
     describe('Initial entries', function(){
 
     const feed = document.querySelector('.feed');
@@ -90,11 +84,11 @@ $(function() {
     const feedsList = [];
 
     
-        /* TODO: Write a test that ensures when the loadFeed
+        /* Checking the loadFeed function to make sure that when the
          * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
+         * a single .entry element within the .feed container. The function pulls
+         * data from outside the page, making it asynchronous.
+         * 
          */
          beforeEach(function(done){
             loadFeed(0, done); 
@@ -107,25 +101,25 @@ $(function() {
             expect(feedsList.length).not.toBe(0);
          });
      });
-    /* TODO: Write a new test suite named "New Feed Selection" */
+    /* Here we check New Feed Selection */
     describe('New Feed Selection', function(){
         const feed = document.querySelector('.feed');
         const entry = document.querySelectorAll('.entry');
         const feedOne = [];
-        const feedTwo = [];
+        //const feedTwo = []; not necessary after all
         
 
-        /* TODO: Write a test that ensures when a new feed is loaded
+        /* Checking that when a new feed is loaded
          * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
+         * 
          */
-         beforeEach(function(done){
-            loadFeed(0);
-            Array.from(feed.children).forEach(function(entry){
-                feedOne.push(entry.innerText);
+         beforeEach(function(done) {
+            loadFeed(0,function() {
+             Array.from(feed.children).forEach(function(entry) {
+            feedOne.push(entry.innerText);
+                });
+            loadFeed(1,done);
             });
-            
-            loadFeed(1, done);
         }); 
             it('changes to new content', function(){
                 Array.from(feed.children).forEach(function(entry, index){
