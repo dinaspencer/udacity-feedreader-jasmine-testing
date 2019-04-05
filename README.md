@@ -1,3 +1,11 @@
+# Steps To Run Application
+
+1. Save or clone the repository and locate the files.
+2. Open the file index.html which will include the Jasmine test at the bottom.
+3. Check Jasmine test for any red comments which show the test isn't working. Update the tests until the test goes green.
+4. To read feeds, click the menu icon on the left to choose the feed source. Open the feed by clicking its title in the main container area.
+
+
 # Project Overview
 
 In this project you are given a web-based application that reads RSS feeds. The original developer of this application clearly saw the value in testing, they've already included [Jasmine](http://jasmine.github.io/) and even started writing their first test suite! Unfortunately, they decided to move on to start their own company and we're now left with an application with an incomplete test suite. That's where you come in.
