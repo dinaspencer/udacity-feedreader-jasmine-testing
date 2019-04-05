@@ -54,14 +54,14 @@ $(function() {
     /* Now we test the menu. */
     describe('The Menu', function() {
         const icon = document.querySelector('i');
-        const body = document.querySelector('body');
+        //const body = document.querySelector('body'); -- I can get this to work with $('body') in the function
 
         /* We want to make sure the menu element is
          * hidden by default. by checking the class of <body>.
          */
 
          it('should be hidden by default', function (){
-            expect(body).hasClass('menu-hidden').toBe(true);
+            expect($('body').hasClass('menu-hidden')).toBe(true);
          });
 
          /* Checking to see if the menu changes
@@ -70,9 +70,9 @@ $(function() {
 
          it('should open and close when clicked', function(){
            icon.click();
-            expect(body).hasClass('menu-hidden').toBe(false);
+            expect($('body').hasClass('menu-hidden')).toBe(false);
             icon.click();
-            expect(body).hasClass('menu-hidden').toBe(true);
+            expect($('body').hasClass('menu-hidden')).toBe(true);
           });
     });
 
